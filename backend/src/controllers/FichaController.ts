@@ -7,6 +7,11 @@ interface FichaProps{
     repeticoesTreino?:Number
 }
 
+interface RequestExtends extends Request{
+    user?: any
+}
+
+
 export const MostrarFichas = async (req:Request,res:Response)=>{
     try {
         const resposta = await prisma.fichaTreino.findMany()
@@ -28,8 +33,9 @@ export const MostrarFichaUnica = async (req:Request,res:Response)=>{
     }
 } 
 
-export const CriarFicha = async (req:Request,res:Response)=>{
-    const {nomeTreino,repeticoesTreino,seriesTreino,idAluno,idInstrutor} = req.body
+export const CriarFicha = async (req:RequestExtends,res:Response)=>{
+    const {nomeTreino,repeticoesTreino,seriesTreino,idAluno} = req.body
+    const idInstrutor = req.user.cargo
 
     try {
         await prisma.fichaTreino.create({
