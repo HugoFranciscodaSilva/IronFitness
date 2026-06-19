@@ -21,7 +21,7 @@ export const MostrarFichas = async (req:Request,res:Response)=>{
         res.status(500).json({mensagem:"Erro ao listar fichas!"})
     }
 } 
-export const MostrarFichaUnica = async (req:Request,res:Response)=>{
+export const MostrarFichaAluno = async (req:Request,res:Response)=>{
     const {id} = req.params
 
     try {
@@ -35,7 +35,7 @@ export const MostrarFichaUnica = async (req:Request,res:Response)=>{
 
 export const CriarFicha = async (req:RequestExtends,res:Response)=>{
     const {nomeTreino,repeticoesTreino,seriesTreino,idAluno} = req.body
-    const idInstrutor = req.user.cargo
+    const idInstrutor = req.user.usuarioId
 
     try {
         await prisma.fichaTreino.create({
@@ -73,6 +73,7 @@ export const AtualizarFicha = async (req:Request,res:Response)=>{
             },
             data:dadosAtualizar
         })
+        res.status(200).json({mensagem:"Ficha Atualizada com sucesso!"})
     } catch (error) {
         console.log(error)
         res.status(500).json({mensagem:"Erro ao atualizar a ficha!"})
