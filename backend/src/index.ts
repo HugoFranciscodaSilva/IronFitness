@@ -4,6 +4,7 @@ import FichaRouter from './routes/FichaRouter'
 import bcrypt from 'bcrypt'
 import prisma from './lib/prisma'
 import jwt from 'jsonwebtoken'
+import cors from 'cors'
 import 'dotenv/config'
 
 const app = express()
@@ -11,6 +12,7 @@ const app = express()
 const JWT_SECRET = process.env.JWT_SECRET || ""
 
 app.use(express.json())
+app.use(cors())
 
 app.get('/', (req,res)=>{
     res.send("Api funcionando!")

@@ -12,7 +12,13 @@ interface UsuarioProps{
 
 export const buscarUsuarios = async (req:Request,res:Response)=>{
     try {
-        const resposta = await prisma.usuario.findMany()
+        const resposta = await prisma.usuario.findMany({select:{
+            id:true,
+            nome:true,
+            email:true,
+            dataCriacao:true,
+            cargo:true
+        }})
         res.status(200).json(resposta)
     } catch (error) {
         console.log(error)
